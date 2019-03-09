@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render header correctly 1`] = `
+<header>
+  <h1>
+    Budget App
+  </h1>
+  <NavLink
+    activeClassName="is-active"
+    aria-current="page"
+    exact={true}
+    to="/"
+  >
+    Go home
+  </NavLink>
+  <br />
+  <NavLink
+    activeClassName="is-active"
+    aria-current="page"
+    to="/help"
+  >
+    Go to HELP page
+  </NavLink>
+  <br />
+  <NavLink
+    activeClassName="is-active"
+    aria-current="page"
+    to="/create"
+  >
+    Go to CREATE page
+  </NavLink>
+</header>
+`;
