@@ -8,11 +8,13 @@
     "build": "webpack",
     "build:prod": "webpack -p --env production",
     "babel-version": "babel --version",
-    "start": "babel src/app.js --out-file=public/scripts/app.js --presets=@babel/env,@babel/react --watch",
+    "build-babel": "babel src/app.js --out-file=public/scripts/app.js --presets=@babel/env,@babel/react --watch",
     "counter": "babel playground/counter.js --out-file=public/scripts/app.js --presets=@babel/env,@babel/react --watch",
     "visibility": "babel playground/visibility.js --out-file=public/scripts/app.js --presets=@babel/env,@babel/react --watch",
     "test": "jest --config=jest.config.json",
-    "serve": "live-server public/"
+    "serve": "live-server public/",
+    "start": "node server/server.js",
+    "heroku-postbuild": "npm run build:prod"
   },
   "author": "",
   "license": "ISC",
@@ -29,6 +31,7 @@
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.10.0",
     "enzyme-to-json": "^3.3.5",
+    "express": "^4.16.4",
     "jest": "^24.1.0",
     "mini-css-extract-plugin": "^0.5.0",
     "moment": "^2.24.0",
