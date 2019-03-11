@@ -6,11 +6,13 @@
   "scripts": {
     "dev-server": "webpack-dev-server",
     "build": "webpack",
+    "build:prod": "webpack -p --env production",
     "babel-version": "babel --version",
     "start": "babel src/app.js --out-file=public/scripts/app.js --presets=@babel/env,@babel/react --watch",
     "counter": "babel playground/counter.js --out-file=public/scripts/app.js --presets=@babel/env,@babel/react --watch",
     "visibility": "babel playground/visibility.js --out-file=public/scripts/app.js --presets=@babel/env,@babel/react --watch",
-    "test": "jest --config=jest.config.json"
+    "test": "jest --config=jest.config.json",
+    "serve": "live-server public/"
   },
   "author": "",
   "license": "ISC",
@@ -28,6 +30,7 @@
     "enzyme-adapter-react-16": "^1.10.0",
     "enzyme-to-json": "^3.3.5",
     "jest": "^24.1.0",
+    "mini-css-extract-plugin": "^0.5.0",
     "moment": "^2.24.0",
     "node-sass": "^4.11.0",
     "normalize.css": "^8.0.1",
