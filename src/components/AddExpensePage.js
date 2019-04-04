@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import ExpenseForm from './ExpenseForm';
-import { addExpense } from '../actions/expenses';
+import { startAddExpense } from '../actions/expenses';
 
 export const AddExpensePage = (props) => {
    return (
@@ -10,18 +10,18 @@ export const AddExpensePage = (props) => {
          <h1>Add Expense</h1>
          <ExpenseForm onSubmit={(expense) => {
             // props.dispatch(addExpense(expense));
-            props.addExpense(expense);
+            props.startAddExpense(expense);
             props.history.push('/');
          }} />
       </div>
    );
 };
 
-// Used for unit-TESTING
+// Used for Unit-TESTING
 const mapDispatchToProps = (dispatch) => {
    return {
-      addExpense: (expense) => {
-         return dispatch(addExpense(expense));
+      startAddExpense: (expense) => {
+         return dispatch(startAddExpense(expense));
       }
    }
 };

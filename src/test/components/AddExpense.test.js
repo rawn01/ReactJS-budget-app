@@ -6,21 +6,21 @@ import { AddExpensePage } from '../../components/AddExpensePage';
 
 
 test('should render the add expense page', () => {
-   const addExpense = jest.fn();
+   const startAddExpense = jest.fn();
    const history = { 
       push: jest.fn() 
    };
-   const wrapper = shallow(<AddExpensePage addExpense={addExpense} history={history} />);
+   const wrapper = shallow(<AddExpensePage startAddExpense={startAddExpense} history={history} />);
    expect(wrapper).toMatchSnapshot();
 });
 
 test('should handle onSubmit', () => {
-   const addExpense = jest.fn();
+   const startAddExpense = jest.fn();
    const history = { 
       push: jest.fn() 
    };
-   const wrapper = shallow(<AddExpensePage addExpense={addExpense} history={history} />);
+   const wrapper = shallow(<AddExpensePage startAddExpense={startAddExpense} history={history} />);
    wrapper.find('ExpenseForm').prop('onSubmit')(expenses[1]);
    expect(history.push).toHaveBeenLastCalledWith('/');
-   expect(addExpense).toHaveBeenLastCalledWith(expenses[1]);
+   expect(startAddExpense).toHaveBeenLastCalledWith(expenses[1]);
 });
