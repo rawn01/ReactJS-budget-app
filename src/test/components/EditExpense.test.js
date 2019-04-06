@@ -5,15 +5,15 @@ import expenses from '../fixtures/expenses';
 import { EditPage } from '../../components/EditExpensePage';
 
 test('should render the edit expense page', () => {
-   const editExpense = jest.fn();
-   const removeExpense = jest.fn();
+   const startEditExpense = jest.fn();
+   const startRemoveExpense = jest.fn();
    const history = {
       push: jest.fn()
    };
    const wrapper = shallow(
       <EditPage 
-         editExpense={editExpense}
-         removeExpense={removeExpense}
+         startEditExpense={startEditExpense}
+         startRemoveExpense={startRemoveExpense}
          history={history}
          expense={expenses[0]}
       />
@@ -23,15 +23,15 @@ test('should render the edit expense page', () => {
 });
 
 test('should handle edit expense', () => {
-   const editExpense = jest.fn();
-   const removeExpense = jest.fn();
+   const startEditExpense = jest.fn();
+   const startRemoveExpense = jest.fn();
    const history = {
       push: jest.fn()
    };
    const wrapper = shallow(
       <EditPage 
-         editExpense={editExpense}
-         removeExpense={removeExpense}
+         startEditExpense={startEditExpense}
+         startRemoveExpense={startRemoveExpense}
          history={history}
          expense={expenses[2]}
       />
@@ -39,19 +39,19 @@ test('should handle edit expense', () => {
 
    wrapper.find('ExpenseForm').prop('onSubmit')(expenses[2]);
    expect(history.push).toHaveBeenLastCalledWith('/');
-   expect(editExpense).toHaveBeenLastCalledWith(expenses[2].id, expenses[2]);
+   expect(startEditExpense).toHaveBeenLastCalledWith(expenses[2].id, expenses[2]);
 });
 
 test('should handle remove expense', () => {
-   const editExpense = jest.fn();
-   const removeExpense = jest.fn();
+   const startEditExpense = jest.fn();
+   const startRemoveExpense = jest.fn();
    const history = {
       push: jest.fn()
    };
    const wrapper = shallow(
       <EditPage 
-         editExpense={editExpense}
-         removeExpense={removeExpense}
+         startEditExpense={startEditExpense}
+         startRemoveExpense={startRemoveExpense}
          history={history}
          expense={expenses[0]}
       />
@@ -59,7 +59,7 @@ test('should handle remove expense', () => {
 
    wrapper.find('button').prop('onClick')(expenses[0]);
    expect(history.push).toHaveBeenLastCalledWith('/');
-   expect(removeExpense).toHaveBeenLastCalledWith({
+   expect(startRemoveExpense).toHaveBeenLastCalledWith({
       id: expenses[0].id
    });
 });

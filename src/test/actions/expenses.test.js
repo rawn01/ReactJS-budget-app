@@ -2,7 +2,7 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
 import expenses from '../fixtures/expenses';
-import { startAddExpense, addExpense, removeExpense, editExpense, setExpenses, startSetExpenses } from '../../actions/expenses';
+import { startAddExpense, addExpense, removeExpense, startRemoveExpense, editExpense, setExpenses, startSetExpenses, startEditExpense } from '../../actions/expenses';
 import firebase from '../../firebase/firebase';
 
 const createMockStore = configureMockStore([thunk]);
@@ -29,6 +29,25 @@ test('should setup remove expense action object', () => {
    });
 });
 
+test('should remove expense object from firebase', (done) => {
+   const store = createMockStore({});
+   const id = expenses[0].id;
+
+   store.dispatch(startRemoveExpense({id})).then(() => {
+      const actions = store.getActions();
+      expect(actions[0]).toEqual({
+         type: 'REMOVE_EXPENSE',
+         id: id
+      });
+      
+      return firebase.database().ref(`expenses/${id}`).once('value');
+   }).then((snapshot) => {
+      expect(snapshot.val()).toBeFalsy();
+      done();
+   });
+});
+
+
 test('should setup edit expense action object', () => {
    const action = editExpense('123', {
       description: 'description',
@@ -48,6 +67,29 @@ test('should setup edit expense action object', () => {
       }
    });
 });
+
+test('should edit expense from firebase', (done) => {
+   const store = createMockStore({});
+   const id = expenses[1].id;
+   const updates = {
+      amount: 15115
+   };
+
+   store.dispatch(startEditExpense(id, updates)).then(() => {
+      const action = store.getActions();
+      expect(action[0]).toEqual({
+         type: 'EDIT_EXPENSE',
+         id: id,
+         updates: updates
+      });
+      
+      return firebase.database().ref(`expenses/${id}`).once('value');
+   }).then((snapshot) => {
+      expect(snapshot.val().amount).toBe(updates.amount);
+      done();
+   })
+});
+
 
 test('should setup edit expense action object with provided values', () => {
    const action = addExpense({

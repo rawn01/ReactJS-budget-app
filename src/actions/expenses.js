@@ -32,12 +32,21 @@ export const startAddExpense = (expenseData = {}) => {
 
 
 // Remove Expense action generator
-export const removeExpense = ({ id }) => {
+export const removeExpense = ({ id } = {}) => {
    return {
       type: 'REMOVE_EXPENSE',
       id: id
    };
 };
+
+export const startRemoveExpense = ({ id } = {}) => {
+   return (dispatch) => {
+      return firebase.database().ref(`expenses/${id}`).remove().then(() => {
+         dispatch(removeExpense({ id }));
+      });
+   };
+};
+
 
 // Edit Expense action generator
 export const editExpense = (id, updates) => {
@@ -45,8 +54,16 @@ export const editExpense = (id, updates) => {
       type: 'EDIT_EXPENSE',
       id: id,
       updates: updates
-   }
+   };
 };
+
+export const startEditExpense = (id, updates) => {
+   return (dispatch) => {  
+      return firebase.database().ref(`expenses/${id}`).update(updates).then(() => {
+         dispatch(editExpense(id, updates));
+      })
+   };
+}
 
 
 // SET_EXPENSES

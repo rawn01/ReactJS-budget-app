@@ -1,18 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { editExpense, removeExpense } from '../actions/expenses';
+import { startEditExpense, startRemoveExpense } from '../actions/expenses';
 import ExpenseForm from './ExpenseForm';
 
 export const EditPage = (props) => {
    return (
       <div>
          <ExpenseForm expense={props.expense} onSubmit={(expense) => {
-            props.editExpense(props.expense.id, expense);
+            props.startEditExpense(props.expense.id, expense);
             props.history.push('/');
          }} />
          <button onClick={() => {
-            props.removeExpense({ id: props.expense.id });
+            props.startRemoveExpense({ id: props.expense.id });
             props.history.push('/');
          }}>Remove</button>
       </div>
@@ -30,11 +30,11 @@ const mapStateToProps = (state, props) => {
 // Used for TESTING
 const mapDispatchToProps = (dispatch) => {
    return {
-      editExpense: (id, expense) => {
-         return dispatch(editExpense(id, expense));
+      startEditExpense: (id, expense) => {
+         return dispatch(startEditExpense(id, expense));
       },
-      removeExpense: (data) => {
-         return dispatch(removeExpense(data));
+      startRemoveExpense: (data) => {
+         return dispatch(startRemoveExpense(data));
       }
    };
 };
