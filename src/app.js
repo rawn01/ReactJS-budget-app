@@ -9,8 +9,9 @@ import 'react-dates/lib/css/_datepicker.css';
 import './firebase/firebase';
 
 import configureStore from './store/configureStore';
-
 import AppRouter from './routers/AppRouter';
+
+import { startSetExpenses } from './actions/expenses';
 
 const store = configureStore();
 
@@ -20,7 +21,12 @@ const jsx = (
    </Provider>
 );
 
-ReactDOM.render(jsx, document.getElementById('app'));
+ReactDOM.render(<h2> Loading...</h2>, document.getElementById('app'));
+
+store.dispatch(startSetExpenses()).then(() => {
+   ReactDOM.render(jsx, document.getElementById('app'));
+});
+
 
 
 // import { addExpense, removeExpense, editExpense } from './actions/expenses';

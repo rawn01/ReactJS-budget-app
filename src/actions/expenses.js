@@ -47,3 +47,28 @@ export const editExpense = (id, updates) => {
       updates: updates
    }
 };
+
+
+// SET_EXPENSES
+export const setExpenses = (expenses) => {
+   return {
+      type: 'SET_EXPENSES',
+      expenses: expenses
+   }
+};
+
+export const startSetExpenses = () => {
+   return (dispatch) => {
+      return firebase.database().ref('expenses').once('value').then((snapshot) => {
+         const expenseArray = [];
+         snapshot.forEach((childSnapshot) => {
+            expenseArray.push({
+               id: childSnapshot.key,
+               ...childSnapshot.val()
+            });
+         });
+
+         dispatch(setExpenses(expenseArray));
+      });
+   };
+}
